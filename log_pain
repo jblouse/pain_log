@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+"""Main python script module"""
+from sqlite3 import Error
+from logging import getLogger
+from sys import argv
+from weather_retriever import WeatherRetriever
+from settings import PAIN_LEVEL_QUESTION, PAIN_INVALID_MESSAGE, MAIN_NAME, \
+    ERROR_SAVING_DATA_MESSAGE, SAVING_MESSAGE, SAVING_COMPLETE_MESSAGE
+
+
+def check_pain_level_input(pain_level):
+    """Check the pain level input for valid values. 0-10"""
+    if not pain_level:
+        return False
+    try:
+        int(pain_level)
+        return True
+    except ValueError:
+        return False
+
+
+def main(pain_level=None):
+    """Wrapper script to request input and call the search routine"""
+    try:
+        if not pain_level:
+            pain_level = raw_input(PAIN_LEVEL_QUESTION)
+        if not check_pain_level_input(pain_level):
+            print PAIN_INVALID_MESSAGE
+            return
+        weather_service = WeatherRetriever()
+        pain_data = weather_service.get_weather()
+        item_count = pain_data.get_pain_item_count()
+        print SAVING_MESSAGE
+        pain_data.save(pain_level)
+        new_item_count = pain_data.get_pain_item_count()
+        if new_item_count == item_count+1:
+            print SAVING_COMPLETE_MESSAGE
+        else:
+            print ERROR_SAVING_DATA_MESSAGE
+    except Error as db_ex:
+        getLogger(__name__).exception(db_ex)
+        print ERROR_SAVING_DATA_MESSAGE
+    except ValueError as ex:
+        getLogger(__name__).exception(ex)
+        print PAIN_INVALID_MESSAGE
+
+
+if __name__ == MAIN_NAME:
+    if len(argv) > 1:
+        PAIN_LEVEL = argv[1]
+        main(PAIN_LEVEL)
+    else:
+        main()

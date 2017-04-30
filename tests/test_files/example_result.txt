@@ -1,0 +1,54 @@
+{
+   "coord":{
+      "lon":-97.68,
+      "lat":30.51
+   },
+   "weather":[
+      {
+         "id":301,
+         "main":"Drizzle",
+         "description":"drizzle",
+         "icon":"09d"
+      },
+      {
+         "id":501,
+         "main":"Rain",
+         "description":"moderate rain",
+         "icon":"10d"
+      },
+      {
+         "id":701,
+         "main":"Mist",
+         "description":"mist",
+         "icon":"50d"
+      }
+   ],
+   "base":"stations",
+   "main":{
+      "temp":287.35,
+      "pressure":1015,
+      "humidity":87,
+      "temp_min":286.15,
+      "temp_max":289.15
+   },
+   "visibility":16093,
+   "wind":{
+      "speed":3.1,
+      "deg":360
+   },
+   "clouds":{
+      "all":90
+   },
+   "dt":1492865760,
+   "sys":{
+      "type":1,
+      "id":2558,
+      "message":0.0567,
+      "country":"US",
+      "sunrise":1492862097,
+      "sunset":1492909413
+   },
+   "id":4724129,
+   "name":"Round Rock",
+   "cod":200
+}
